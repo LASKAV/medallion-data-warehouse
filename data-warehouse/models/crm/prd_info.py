@@ -12,8 +12,8 @@ from datetime import datetime
 #     prd_end_dt   TIMESTAMP
 
 
-class Prd_info(BaseModel):
-    prd_id: int
+class PrdInfo(BaseModel):
+    prd_id: Optional[int] = None
     prd_key: Optional[str] = None
     prd_nm: Optional[str] = None
     prd_cost: Optional[int] = None

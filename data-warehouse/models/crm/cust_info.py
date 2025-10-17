@@ -12,9 +12,9 @@ from datetime import date
 #     cst_create_date    DATE
 
 
-class Custom_info(BaseModel):
-    cst_id: int
-    cst_key: str
+class CustomInfo(BaseModel):
+    cst_id: Optional[int] = None
+    cst_key: Optional[str] = None
     cst_firstname: Optional[str] = None
     cst_lastname: Optional[str] = None
     cst_marital_status: Optional[str] = None
