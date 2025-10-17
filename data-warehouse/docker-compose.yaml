@@ -1,0 +1,27 @@
+
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ssG0op658TT
+      POSTGRES_DB: warehouse
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+
+  spark:
+    image: spark:python3
+    container_name: spark
+    depends_on:
+      - postgres
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./datasets:/source_crm
+      - ./datasets:/source_erp
+      - ./scripts:/scripts

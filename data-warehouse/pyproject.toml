@@ -5,5 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "pydantic>=2.12.2",
+    "pydantic-settings>=2.11.0",
+    "pyspark>=4.0.1",
     "sqlmodel>=0.0.27",
 ]
