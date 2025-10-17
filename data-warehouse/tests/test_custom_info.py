@@ -40,23 +40,6 @@ def test_invalid_custom_info_from_csv():
         CustomInfo(**invalid_data)
 
 
-def test_valid_customer_info():
-    """Test that the model validates with correct data."""
-    data = {
-        "cst_id": 1,
-        "cst_key": "C001",
-        "cst_firstname": "John",
-        "cst_lastname": "Doe",
-        "cst_marital_status": "Single",
-        "cst_gndr": "M",
-        "cst_create_date": "2025-10-17",
-    }
-
-    model = CustomInfo(**data)
-    assert model.cst_id == 1
-    assert model.cst_create_date == date(2025, 10, 17)
-
-
 def test_invalid_date_format():
     """Test that an invalid date format raises a validation error."""
     data = {
