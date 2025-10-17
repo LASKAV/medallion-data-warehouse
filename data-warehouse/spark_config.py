@@ -49,3 +49,13 @@ class GoldSpark(SparkStrategy):
             .getOrCreate()
         )
         return session
+
+
+class SparkContext:
+    def __init__(self, strategy: SparkStrategy):
+        self.strategy = strategy
+        self.spark = self.strategy.create_session()
+
+    def set_strategy(self, strategy: SparkStrategy):
+        self.strategy = strategy
+        self.spark = self.strategy.create_session()
