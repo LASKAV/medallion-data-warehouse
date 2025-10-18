@@ -28,7 +28,6 @@ class BronzeLayerETL(IBaseLayerETL):
         return self.spark.read.csv(str(SALES_FILE), header=True, inferSchema=True)
     
     def write_to_postgres(self, df: DataFrame, table_name: str, schema: str):
-        # Write using the consolidated options stored in instance
         df.write \
             .format("jdbc") \
             .options(**self.jdbc_options) \
