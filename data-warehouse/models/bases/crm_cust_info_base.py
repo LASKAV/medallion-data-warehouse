@@ -1,7 +1,6 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel
 from typing import Optional
 from datetime import date
-
 
 #     cst_id             INT,
 #     cst_key            VARCHAR(50),
@@ -12,7 +11,7 @@ from datetime import date
 #     cst_create_date    DATE
 
 
-class CustomInfo(BaseModel):
+class BaseCustInfo(SQLModel):
     cst_id: Optional[int] = None
     cst_key: Optional[str] = None
     cst_firstname: Optional[str] = None

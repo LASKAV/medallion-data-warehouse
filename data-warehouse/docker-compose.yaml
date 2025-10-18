@@ -1,6 +1,4 @@
 
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16
@@ -15,13 +13,21 @@ services:
       - ./init-db:/docker-entrypoint-initdb.d
 
   spark:
-    image: spark:python3
+    build: .
     container_name: spark
     depends_on:
       - postgres
     ports:
       - "4040:4040"
+    environment:
+      SPARK_MASTER: local[*]
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
     volumes:
-      - ./datasets:/source_crm
-      - ./datasets:/source_erp
+      - ./datasets/crm:/source_crm
+      - ./datasets/erp:/source_erp
       - ./scripts:/scripts
+      - ./drivers:/drivers
+      - ./:/app
+    working_dir: /app

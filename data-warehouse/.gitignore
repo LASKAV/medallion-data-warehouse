@@ -3,3 +3,21 @@
 .idea/
 .pytest_cache/
 .__pycache__
+.pytest_cache/*
+
+# Python cache files
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# Tests cache files
+tests/__pycache__/
+tests/*/__pycache__/
+tests/**/__pycache__/
+
+data-warehouse/tests/__pycache__/

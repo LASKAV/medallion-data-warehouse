@@ -18,6 +18,7 @@ class BronzeSpark(SparkStrategy):
             SparkSession.builder.appName("BronzeLayerETL")
             .config("spark.sql.shuffle.partitions", "2")
             .config("spark.driver.memory", "2g")
+            .config("spark.jars", "drivers/postgresql-42.7.8.jar")
             .getOrCreate()
         )
         return session
@@ -32,6 +33,7 @@ class SilverSpark(SparkStrategy):
             SparkSession.builder.appName("SilverLayerETL")
             .config("spark.sql.shuffle.partitions", "2")
             .config("spark.driver.memory", "2g")
+            .config("spark.jars", "/drivers/postgresql-42.7.8.jar")
             .getOrCreate()
         )
         return session
@@ -46,6 +48,7 @@ class GoldSpark(SparkStrategy):
             SparkSession.builder.appName("GoldLayerETL")
             .config("spark.sql.shuffle.partitions", "2")
             .config("spark.driver.memory", "2g")
+            .config("spark.jars", "/drivers/postgresql-42.7.8.jar")
             .getOrCreate()
         )
         return session

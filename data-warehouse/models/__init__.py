@@ -1,5 +1,3 @@
-from .crm.cust_info import CustomInfo
-from .crm.prd_info import PrdInfo
-from .crm.sales_details import SalesDetails
+from .bases.crm_cust_info_base import CustomInfo
 
-__all__ = ["CustomInfo", "PrdInfo", "SalesDetails"]
+__all__ = ["CustomInfo"]
