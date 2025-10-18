@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        extra="ignore",  # Ignore extra fields from .env file
+        extra="ignore",
     )
 
     pg_dsn: PostgresDsn = Field(alias="DATABASE_URL_DOCKER")

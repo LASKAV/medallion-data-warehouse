@@ -25,8 +25,8 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
     volumes:
-      - ./datasets/crm:/source_crm
-      - ./datasets/erp:/source_erp
+      - ./datasets:/source_crm
+      - ./datasets:/source_erp
       - ./scripts:/scripts
       - ./drivers:/drivers
       - ./:/app
