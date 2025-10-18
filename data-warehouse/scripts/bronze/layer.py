@@ -1,11 +1,20 @@
 from spark import SparkContext, BronzeSpark
+from spark.strategy import SparkStrategy
 from scripts.config import CUST_FILE, PRD_FILE, SALES_FILE
 from scripts.etl_interfaces import IBaseLayerETL
 from pyspark.sql import DataFrame
 from settings import settings
 
+
 class BronzeLayerETL(IBaseLayerETL):
     def __init__(self):
+        # Get JDBC options from settings
+        settings_options = settings.get_jdbc_options()
+        self.jdbc_options = SparkStrategy.get_jdbc_options(
+            url=settings_options["url"],
+            user=settings_options["user"], 
+            password=settings_options["password"]
+        )
         context = SparkContext(BronzeSpark())
         self.spark = context.spark
 
@@ -19,13 +28,10 @@ class BronzeLayerETL(IBaseLayerETL):
         return self.spark.read.csv(str(SALES_FILE), header=True, inferSchema=True)
     
     def write_to_postgres(self, df: DataFrame, table_name: str, schema: str):
-        options = settings.get_jdbc_options()
+        # Write using the consolidated options stored in instance
         df.write \
-        .format("jdbc") \
-        .option("url", options["url"]) \
-        .option("dbtable", f"{schema}.{table_name}") \
-        .option("user", options["user"]) \
-        .option("password", options["password"]) \
-        .option("driver", "org.postgresql.Driver") \
-        .mode("append") \
-        .save()
+            .format("jdbc") \
+            .options(**self.jdbc_options) \
+            .option("dbtable", f"{schema}.{table_name}") \
+            .mode("append") \
+            .save()

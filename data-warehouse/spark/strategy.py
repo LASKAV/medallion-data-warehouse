@@ -3,10 +3,36 @@ from pyspark.sql import SparkSession
 
 
 class SparkStrategy(ABC):
+    # Common configuration for all Spark sessions
+    DEFAULT_CONFIGS = {
+        "spark.sql.shuffle.partitions": "2",
+        "spark.driver.memory": "2g",
+        "spark.jars": "drivers/postgresql-42.7.8.jar"
+    }
+    
     @abstractmethod
     def create_session(self) -> SparkSession:
         """Return a configured SparkSession"""
         pass
+    
+    def _get_base_builder(self, app_name: str) -> SparkSession.Builder:
+        """Create a base SparkSession builder with common configurations"""
+        builder = SparkSession.builder.appName(app_name)
+        
+        for key, value in self.DEFAULT_CONFIGS.items():
+            builder = builder.config(key, value)
+            
+        return builder
+    
+    @staticmethod
+    def get_jdbc_options(url: str, user: str, password: str) -> dict:
+        """Get JDBC connection options"""
+        return {
+            "url": url,
+            "user": user, 
+            "password": password,
+            "driver": "org.postgresql.Driver"
+        }
 
 
 """ BronzeLayerETL """
@@ -14,14 +40,7 @@ class SparkStrategy(ABC):
 
 class BronzeSpark(SparkStrategy):
     def create_session(self) -> SparkSession:
-        session = (
-            SparkSession.builder.appName("BronzeLayerETL")
-            .config("spark.sql.shuffle.partitions", "2")
-            .config("spark.driver.memory", "2g")
-            .config("spark.jars", "drivers/postgresql-42.7.8.jar")
-            .getOrCreate()
-        )
-        return session
+        return self._get_base_builder("BronzeLayerETL").getOrCreate()
 
 
 """SilverLayerETL"""
@@ -29,14 +48,7 @@ class BronzeSpark(SparkStrategy):
 
 class SilverSpark(SparkStrategy):
     def create_session(self) -> SparkSession:
-        session = (
-            SparkSession.builder.appName("SilverLayerETL")
-            .config("spark.sql.shuffle.partitions", "2")
-            .config("spark.driver.memory", "2g")
-            .config("spark.jars", "/drivers/postgresql-42.7.8.jar")
-            .getOrCreate()
-        )
-        return session
+        return self._get_base_builder("SilverLayerETL").getOrCreate()
 
 
 """GoldLayerETL"""
@@ -44,11 +56,4 @@ class SilverSpark(SparkStrategy):
 
 class GoldSpark(SparkStrategy):
     def create_session(self) -> SparkSession:
-        session = (
-            SparkSession.builder.appName("GoldLayerETL")
-            .config("spark.sql.shuffle.partitions", "2")
-            .config("spark.driver.memory", "2g")
-            .config("spark.jars", "/drivers/postgresql-42.7.8.jar")
-            .getOrCreate()
-        )
-        return session
+        return self._get_base_builder("GoldLayerETL").getOrCreate()
