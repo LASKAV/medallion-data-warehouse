@@ -1,9 +1,9 @@
-from spark import SparkContext, BronzeSpark
-from spark.strategy import SparkStrategy
-from scripts.config import CUST_FILE, PRD_FILE, SALES_FILE
-from scripts.etl_interfaces import IBaseLayerETL
+from warehouse.spark import SparkContext, BronzeSpark
+from warehouse.spark.strategy import SparkStrategy
+from warehouse.config import CUST_FILE, PRD_FILE, SALES_FILE
+from warehouse.etl.interfaces import IBaseLayerETL
 from pyspark.sql import DataFrame
-from settings import settings
+from warehouse.settings import settings
 
 
 class BronzeLayerETL(IBaseLayerETL):

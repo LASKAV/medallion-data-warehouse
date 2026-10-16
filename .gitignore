@@ -1,3 +1,8 @@
-data-warehouse/tests/__pycache__/
-
-data-warehouse/tests/__pycache__/test_custom_info.cpython-314-pytest-8.4.2.pyc
+/.env
+/.vscode/
+.idea/
+.venv/
+.DS_Store
+.pytest_cache/
+__pycache__/
+*.py[cod]

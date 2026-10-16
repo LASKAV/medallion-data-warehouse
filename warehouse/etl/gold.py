@@ -1,6 +1,6 @@
-from spark import SparkContext, GoldSpark
-from scripts.config import CUST_FILE, PRD_FILE, SALES_FILE
-from scripts.etl_interfaces import IBaseLayerETL
+from warehouse.spark import SparkContext, GoldSpark
+from warehouse.config import CUST_FILE, PRD_FILE, SALES_FILE
+from warehouse.etl.interfaces import IBaseLayerETL
 from pyspark.sql import DataFrame
 
 

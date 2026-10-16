@@ -1,7 +1,7 @@
 [project]
 name = "data-warehouse"
 version = "0.1.0"
-description = "Add your description here"
+description = "Medallion (bronze/silver/gold) data warehouse built with PySpark and PostgreSQL"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

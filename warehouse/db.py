@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from settings import settings
+from warehouse.settings import settings
 
 
 engine = create_async_engine(settings.pg_dsn, echo=True)

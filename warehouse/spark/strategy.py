@@ -1,13 +1,15 @@
 from abc import ABC, abstractmethod
 from pyspark.sql import SparkSession
 
+from warehouse.config import POSTGRES_JDBC_JAR
+
 
 class SparkStrategy(ABC):
     # Common configuration for all Spark sessions
     DEFAULT_CONFIGS = {
         "spark.sql.shuffle.partitions": "2",
         "spark.driver.memory": "2g",
-        "spark.jars": "drivers/postgresql-42.7.8.jar"
+        "spark.jars": str(POSTGRES_JDBC_JAR)
     }
     
     @abstractmethod
